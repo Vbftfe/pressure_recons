@@ -32,7 +32,7 @@ function [dux_dy, duy_dy] = calc_du_y(ux, uy, idx, Lx)
     if idx >= 1 && idx <= Lx
        dux_dy = ux(idx + Lx) - ux(idx);
        duy_dy = uy(idx + Lx) - uy(idx);
-    elseif idx >= length(ux) - Lx + 1 && idx <= length(ux)
+    elseif idx>
         dux_dy = ux(idx) - ux(idx - Lx);
         duy_dy = uy(idx) - uy(idx - Lx);
     end

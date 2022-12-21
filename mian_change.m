@@ -25,7 +25,7 @@ param.Re0 = param.rho*param.Uinf*param.L0/param.visc;   % Scale Reynolds number
 
 param.omega = 1.5;
 
-% 获取真实压力场的数值
+% 获取真实压力场的数�??
 param.turePressure = getTruePressure('./pressure.txt');
 
 %% READ DATA
@@ -74,7 +74,8 @@ rms = zeros(length(omega), numTimesteps - startingTimestep + 1);
         if strcmp(approach,'eul')
 
             % Perform Eulerian pressure reconstruction
-            pressureField = eulerianPressureSolver(param,pivData,currentTime);
+%             pressureField = eulerianPressureSolver(param,pivData,currentTime);
+            pressureField = calc_Poission_rhm(pivData, param, currentTime);
 
         elseif strcmp(approach,'lag')
 
