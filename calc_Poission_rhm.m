@@ -11,7 +11,7 @@ h = 1;
 dx = h;
 dy = dx;
 % 计算边界上的导数值
-[a, dux_dy, duy_dx, d] = calc_boundary_diff(pivData, Lx, domainBoundary, currentTime);
+[~, dux_dy, duy_dx, ~] = calc_boundary_diff(pivData, Lx, domainBoundary, currentTime);
 omega(domainBoundary) = duy_dx(domainBoundary) - dux_dy(domainBoundary);
 
 for i = 1:length(ux)
@@ -31,4 +31,5 @@ for i = 1:length(ux)
     end
 end
 
+velSource = array2grid(pivData,velSource);
 pressureField = SORPoissonSolver(param,pivData,velSource,currentTime);

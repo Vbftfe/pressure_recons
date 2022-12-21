@@ -23,7 +23,7 @@ param.P0 = param.rho*param.Uinf^2;                      % Scale pressure [Pa]
 param.t0 = param.L0/param.Uinf;                         % Scale time [s]
 param.Re0 = param.rho*param.Uinf*param.L0/param.visc;   % Scale Reynolds number
 
-param.omega = 1.5;
+param.omega = 'opt';
 
 % 获取真实压力场的数�??
 param.turePressure = getTruePressure('./pressure.txt');

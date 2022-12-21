@@ -19,10 +19,10 @@ function [dux_dx, dux_dy, duy_dx, duy_dy] = calc_boundary_diff(pivData, Lx, doma
 end
 
 function [dux_dx, duy_dx] = calc_du_x(ux, uy, idx, Lx)
-    if mod(idx, Lx) == 0
+    if mod(idx - 1, Lx) > Lx / 2
        dux_dx = ux(idx) - ux(idx - 1);
        duy_dx = uy(idx) - uy(idx - 1);
-    elseif mod(idx, Lx) == 1
+    else
         dux_dx = ux(idx + 1) - ux(idx);
         duy_dx = uy(idx + 1) - uy(idx);
     end
@@ -32,7 +32,7 @@ function [dux_dy, duy_dy] = calc_du_y(ux, uy, idx, Lx)
     if idx >= 1 && idx <= Lx
        dux_dy = ux(idx + Lx) - ux(idx);
        duy_dy = uy(idx + Lx) - uy(idx);
-    elseif idx >= length(ux) - Lx + 1 && idx <= length(ux)
+    else
         dux_dy = ux(idx) - ux(idx - Lx);
         duy_dy = uy(idx) - uy(idx - Lx);
     end
