@@ -27,7 +27,8 @@ function pressureField = SORPoissonSolver(param,pivData,sourceTerm,currentTime)
     end
     
     % Initial pressure field
-    pressureField = zeros(1,arrayLength);
+%     pressureField = zeros(1,arrayLength);
+%     pressureField = ones(1,arrayLength)*1.22e04;
 
     %% BOUNDARY CONDITIONS
     
@@ -43,7 +44,7 @@ function pressureField = SORPoissonSolver(param,pivData,sourceTerm,currentTime)
 %     % Calculate Bernoulli pressure at boundaries
 %     pressureBC = 0.5*(1 - (uxBC.^2 + uyBC.^2));
 %     pressureField(domainBoundary) = pressureBC;
-    % 获取边界处的压力值
+    % 获取边界处的压力�?
 %     pressureField(domainBoundary) = param.turePressure(domainBoundary);
 %     pressureField((end - Lx + 1):end) = param.turePressure(1:Lx);
     
@@ -58,11 +59,6 @@ function pressureField = SORPoissonSolver(param,pivData,sourceTerm,currentTime)
     
     % Iterate algorithm towards convergence
     for iter = 1:maxIter
-        % 将新的边界条件带入
-        boundary_pressure = calc_boundary_pressure(ux, uy, grid2array(pressureField), domainBoundary, param.miu, Lx, Ly);
-        pressureField = grid2array(pressureField);
-        pressureField(domainBoundary) = boundary_pressure(domainBoundary);
-        pressureField = array2grid(pivData, pressureField);
         % Record previous field before calculation
         oldField = pressureField;
     
@@ -98,13 +94,19 @@ function pressureField = SORPoissonSolver(param,pivData,sourceTerm,currentTime)
         if diff_error < minError
             break;
         end
+        
+         % 将新的边界条件带�?
+        boundary_pressure = calc_boundary_pressure2(ux, uy, grid2array(pressureField), domainBoundary, param, Lx, Ly);
+        pressureField = grid2array(pressureField);
+        pressureField(domainBoundary) = boundary_pressure(domainBoundary);
+        pressureField = array2grid(pivData, pressureField);
+%         pressureField((end - Lx + 1):end) = param.turePressure(1:Lx);
     end
-    
+        
     if iter == maxIter
         disp('Solution has not converged');
     end
-
-
+    fprintf("totally iterate %d times\n", iter);
     
 %     % Return pressure coefficient
 %     pressureField = 2*pressureField;

@@ -1,4 +1,5 @@
-function pressureField = eulerianPressureSolver(param,pivData,currentTime)
+% function pressureField = eulerianPressureSolver(param,pivData,currentTime)
+function velSource = eulerianPressureSolver(param,pivData,currentTime)
 
     % Calculate Eulerian pressure by Poisson solver
     
@@ -124,6 +125,6 @@ function pressureField = eulerianPressureSolver(param,pivData,currentTime)
     velSource = array2grid(pivData,velSource);
     
     %% POISSON SOLVER
-    pressureField = SORPoissonSolver(param,pivData,velSource,currentTime);
+%     pressureField = SORPoissonSolver(param,pivData,velSource,currentTime);
     
 end

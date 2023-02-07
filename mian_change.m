@@ -12,8 +12,10 @@ set(groot,'defaultFigurePosition',[100 100 600 400]); % For large images
 % Experimental Conditions
 param.rho = 1056;                                      % Ambient Air Density [kg/m^3]
 param.visc = 0.004;                                   % Ambient Air Viscosity [Pa.s]
-param.Uinf = 1;                                         % Free-stream velocity [m/s] 
+param.Uinf = 0.5;
+% param.Uinf = 0.05;                                         % Free-stream velocity [m/s] 
 param.Pinf = 0;                                         % Free-stream static pressure[Pa]
+% param.L0 = 0.0001;
 param.L0 = 0.001;                                       % Length per pixel [m]
 param.dt = 0.01;                                        % Time-step [s]
 param.miu = 0.004;
@@ -25,7 +27,7 @@ param.Re0 = param.rho*param.Uinf*param.L0/param.visc;   % Scale Reynolds number
 
 param.omega = 'opt';
 
-% 获取真实压力场的数�??
+% 获取真实压力场的数�??
 param.turePressure = getTruePressure('./pressure.txt');
 
 %% READ DATA

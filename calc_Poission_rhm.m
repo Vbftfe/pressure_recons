@@ -1,5 +1,5 @@
 function pressureField = calc_Poission_rhm(pivData, param, currentTime)
-% ²Î¿¼ÎÄÏ×: https://sci-hub.se/https://www.sciencedirect.com/science/article/pii/0021999187900088
+% ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½: https://sci-hub.se/https://www.sciencedirect.com/science/article/pii/0021999187900088
 % omega = duy_dx - dux_dy;
 [domainBoundary, internalDomain] = getDomainBoundary(pivData);
 ux = pivData.ux{currentTime};
@@ -10,7 +10,7 @@ velSource = omega;
 h = 1;
 dx = h;
 dy = dx;
-% ¼ÆËã±ß½çÉÏµÄµ¼ÊýÖµ
+% ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ÏµÄµï¿½ï¿½ï¿½Öµ
 [~, dux_dy, duy_dx, ~] = calc_boundary_diff(pivData, Lx, domainBoundary, currentTime);
 omega(domainBoundary) = duy_dx(domainBoundary) - dux_dy(domainBoundary);
 
@@ -31,5 +31,8 @@ for i = 1:length(ux)
     end
 end
 
-velSource = array2grid(pivData,velSource);
+% velSource = array2grid(pivData,velSource);
+velSource = eulerianPressureSolver(param,pivData,currentTime);
+param.vorticity = omega;
 pressureField = SORPoissonSolver(param,pivData,velSource,currentTime);
+% pressureField = pressureField*1e06 + 1.22e04;

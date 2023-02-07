@@ -10,5 +10,5 @@ function pivData = getPivData(path)
         pivData.ux{i} = data(:, 3)';
         pivData.uy{i} = data(:, 4)';
     end
-    pivData.type = '2D';
+    pivData.type = '3D';
     pivData.domain = ~isnan(pivData.ux{1});
